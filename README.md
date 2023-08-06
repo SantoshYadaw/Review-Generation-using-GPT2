@@ -113,7 +113,7 @@ GPT2 Evaluation Results Summary
 
 a. Overall observation using Jaccard Similarity Score
 
-1. From the above summary, the average jaccard similarity score calculated on the validation set is 0.8. This means the generated text on average are only 80% similar to the original text which seems to indicate a pretty good score.
+1. From the above summary, the average jaccard similarity score calculated on the validation set is 0.8 with min score of 0.05 and max score of 1.0. This means the generated text on average are only 80% similar to the original text which seems to indicate a pretty good score.
 2. In general, the jaccard score is higher for given sentences that are shorter in length.
 3. The limitation with jaccard similiarity:
 - is it does not capture the magnitude or direction of the vectors and hence it may not reflec the strength of the similarity
@@ -134,7 +134,7 @@ Statistics of samples with low than average jaccard score
 
 b. Overall observations on Cosine Similarity Score
 
-1. From the above summary, the average cosine similarity score between the original and gpt2 generated text on validation data is around 0.78 with  min score of -0.05 and maximum score 1.0
+1. From the above summary, the average cosine similarity score between the original and gpt2 generated text on validation data is around 0.78 with min score of 0.02 and maximum score 1.0
 2. Similar to jaccard similarity score, the cosine similarity score of the gpt2 generated text is higher when the original sentences have less words
 
 Statistics of samples with high than average cosine similarity score

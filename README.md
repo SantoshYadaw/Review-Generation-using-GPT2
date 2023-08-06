@@ -64,7 +64,7 @@ If you wish to run via the python scripts, run them in the following order
 ``` python -m src.data.make_dataset ```
 
 2. Train the gpt2 model:
-``` python src.models.train_model.py ```
+``` python src.models.train_model ```
 
 3. Call inference using trained gpt2 model:
 ``` python src.models.predict_model ```

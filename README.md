@@ -119,13 +119,8 @@ b. Similar to jaccard similarity score, the cosine similarity score of the gpt2 
 
 Future Work
 ------------
-- [ ] Using other loss functions to penalize the majority class
-- [ ] Ensemble of models to improve overall score 
 - [ ] Write test cases for function
-- [ ] Hosting model and creating an API to serve model predictions
-
-- [ ] Overall we can see the generated text are not quite identicle to the original text. This is expected since we only trained the model on 6 epochs and the loss had not yet converged.
-- [ ] Splitting the dataset -> perhaps we can try to split the data to ensure we have a representative dataset. For example we can try using sentence transformer model to generate the embeddings, then perform clustering to group the data. Then we systematically sample data for each of the groups rather than randomly splitting.
+- [ ] Overall we can see the generated text are not quite identical to the original text. This is expected since we only trained the model on 6 epochs and the loss had not yet converged. Hence we can try to train the model until convergence.
 - [ ] Maybe we can try to retrain the model using a reviews dataset first and then use the current dataset and fine tune it.
 - [ ] Using pretraind word2vec may not be the best way to measure and evaluate the quality of the text generated since its a quantitative approach. Perhaps incorporating a more qualitiative approach too might be needed to fully evaluate the gpt2 generated text - coherence etc, BLEU or ROGUE
 - [ ] Using sentence transformers to generate embeddings rather than word2vec.

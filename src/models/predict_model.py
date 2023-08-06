@@ -51,7 +51,6 @@ EARLY_STOPPING= True
 # Prep data for inference by taking away original sentence all words except 2-3 words randomly
 def truncate_text(text: str):
     
-    ran_num = random.randint(5,10)
     ran_num = 4
     
     # Split by space
@@ -111,27 +110,28 @@ def view_generated_samples(index: int, data: pd.DataFrame):
     print(f"\n")
 
 # Create embeddings using simply word2vec
-def generate_word2vec_embedding(sentence: str):
-    import spacy
+def generate_word2vec_embedding(sentence: str, word2vec_model):
     # generate the average of word embeddings
-    return nlp(sentence).vector
+    return word2vec_model(sentence).vector
 
-def calculate_cosine_similarity_score(sentence_one: str, sentence_two: str):
+def calculate_cosine_similarity_score(sentence_one: str, sentence_two: str, word2vec_model):
     # encode the sentences into embeddings
-    sentence_one_emb = generate_word2vec_embedding(sentence_one)
-    sentence_two_emb = generate_word2vec_embedding(sentence_two)
+    sentence_one_emb = generate_word2vec_embedding(sentence_one, word2vec_model)
+    sentence_two_emb = generate_word2vec_embedding(sentence_two, word2vec_model)
     
     # calculate cosine similarity score
     cos_sim_score = 1 - cosine(sentence_one_emb, sentence_two_emb)
     return cos_sim_score
 
 def predict_gpt(val_data_path: str):
+    import spacy
+    
     # Load Validation data
     logging.info(f"Loading validation dataset ...")
     data = pd.read_csv(val_data_path)
     data_val = data[data["split"] == "val"]
     data_val["text"] = data_val["text"].astype(str)
-
+    
     # Loading trained model and tokenizer
     logging.info(f"Loading trained gpt2 model and tokenizer ...")
     gpt2_model = GPT2LMHeadModel.from_pretrained(MODEL_PATH)
@@ -166,7 +166,7 @@ def predict_gpt(val_data_path: str):
 
     # Calculate cosine similarity score
     logging.info(f"Calculating cosine similarity score ...")
-    data_val["cos_sim_score"] = data_val.progress_apply(lambda x: calculate_cosine_similarity_score(x["text"], x["gpt_text_gen"]), axis=1)
+    data_val["cos_sim_score"] = data_val.progress_apply(lambda x: calculate_cosine_similarity_score(x["text"], x["gpt_text_gen"], nlp), axis=1)
 
     # Save final results
     logging.info(f"Saving results ...")

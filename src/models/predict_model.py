@@ -1,4 +1,4 @@
-import spacy
+# import spacy
 from scipy.spatial.distance import cosine
 
 import os
@@ -112,6 +112,7 @@ def view_generated_samples(index: int, data: pd.DataFrame):
 
 # Create embeddings using simply word2vec
 def generate_word2vec_embedding(sentence: str):
+    import spacy
     # generate the average of word embeddings
     return nlp(sentence).vector
 
